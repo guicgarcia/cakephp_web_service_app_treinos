@@ -43,7 +43,6 @@ class UsersController extends AppController
         ]);
 
         $this->set('user', $user);
-        //$this->set('_serialize', 'users');
         return $this->response->withType("application/json")->withStringBody(json_encode($user));
     }
 
@@ -59,7 +58,6 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Usuário cadastrado com sucesso'));
-
                 return $this->redirect(['action' => 'index']);
             } 
             $this->Flash->error(__('Erro: Usuário não foi cadastrado com sucesso'));
@@ -122,13 +120,11 @@ class UsersController extends AppController
             $perfilUser = $this->Users->getUserDados($username, $password);
             
             if($perfilUser == null) {
-                
                 $user = array(
                     'id' => 0,
                     'username'=> null,
                     'password'=> null
                 );
-
                 return $this->response->withType("application/json")->withStringBody(json_encode($user));
             } else {
             
@@ -139,64 +135,13 @@ class UsersController extends AppController
             'username'=> $username,
             'password'=> $password
             );
-            
             return $this->response->withType("application/json")->withStringBody(json_encode($user));
-            
             }
-
        }
     }
 
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
-    }
-    
-    
-    
-    
-    // public function login()
-    // {
-    //   if($this->request->is('post')){
-    //         //$usuario = $this->Auth->identify();
-    //         //$id = $usuario['id'];
-            
-    //         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-    //         $username = $dados['username'];
-    //         $password = $dados['password'];
-            
-    //         $perfilUser = $this->Users->getUserDados($username, $password);
-            
-    //         if($perfilUser == null) {
-    //             var_dump("veio null");
-    //         } else {
-            
-    //         $id = $perfilUser['id']; 
-            
-    //         $user = array(
-    //         'id' => $id,
-    //         'username'=> $username,
-    //         'password'=> $password
-    //         );
-
-    //         $_SESSION['userid'] = $user['id'];
-            
-    //         //$this->set('_serialize', 'user');
-    //         return $this->response->withType("application/json")->withStringBody(json_encode($user));
-            
-    //         }
-            
-    //          //if($perfilUser){
-    //         // $this->Auth->setUser($user);
-            
-    //         //return $this->response->withType("application/json")->withStringBody(json_encode($user));
-                
-    //         //$this->set('_serialize', 'user');
-    //         //     //return $this->redirect($this->Auth->redirectUrl());
-    //         //}
-    //   }
-    // }
-    
-    
-    
+    }   
 }
